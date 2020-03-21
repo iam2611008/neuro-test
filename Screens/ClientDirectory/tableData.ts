@@ -1,4 +1,12 @@
-const tableData = [
+export interface IClient {
+  clientId: string;
+  injury: string;
+  sideLevel: string;
+  strength: string;
+  createdAt: string;
+}
+
+const tableData: IClient[] = [
   {
     clientId: '84',
     injury: 'ABI',

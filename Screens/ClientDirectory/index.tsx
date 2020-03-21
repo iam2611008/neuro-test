@@ -4,15 +4,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { Button, CheckBox } from 'react-native-elements';
 
-import dummyData from './tableData';
-
-type ItemProps = {
-  clientId: string;
-  injury: string;
-  sideLevel: string;
-  strength: string;
-  createdAt: string;
-};
+import dummyData, { IClient } from './tableData';
 
 function ClientDirectory() {
   const [tableHead, setTableHead] = useState([
@@ -28,19 +20,22 @@ function ClientDirectory() {
   React.useEffect(() => {
     let arr = [];
 
-    dummyData.map((item: ItemProps) => {
-      arr = [...arr, [false, ...Object.values(item)]];
-    });
+    dummyData.map(
+      (item: IClient): Array<IClient> => {
+        arr = [...arr, [false, ...Object.values(item)]];
+        return arr;
+      }
+    );
     setTableData(arr);
   }, []);
 
-  const onClickCheckbox = (index: number) => {
+  const onClickCheckbox = (index: number): void => {
     const arr = tableData;
     arr[index][0] = !arr[index][0];
     setTableData([...arr]);
   };
 
-  const element = (data: boolean, index: number) => {
+  const element = (data: boolean, index: number): JSX.Element => {
     return (
       <View>
         <CheckBox checked={data} onPress={() => onClickCheckbox(index)} />
@@ -64,19 +59,22 @@ function ClientDirectory() {
             />
             {tableData.map((rowData, index) => (
               <TableWrapper key={index} style={styles.row}>
-                {rowData.map((cellData, cellIndex: number) => (
-                  <Cell
-                    key={cellIndex}
-                    data={cellIndex === 0 ? element(cellData, index) : cellData}
-                    style={{
-                      flex: cellIndex === 3 || cellIndex === 5 ? 2 : 1,
-                      borderBottomWidth: 1,
-                      borderColor: '#C1C0B9'
-                    }}
-                    borderStyle={{}}
-                    textStyle={styles.text}
-                  />
-                ))}
+                {rowData.map(
+                  (cellData: any, cellIndex: number): JSX.Element => (
+                    <Cell
+                      key={cellIndex}
+                      data={
+                        cellIndex === 0 ? element(cellData, index) : cellData
+                      }
+                      style={{
+                        flex: cellIndex === 3 || cellIndex === 5 ? 2 : 1,
+                        borderBottomWidth: 1,
+                        borderColor: '#C1C0B9'
+                      }}
+                      textStyle={styles.text}
+                    />
+                  )
+                )}
               </TableWrapper>
             ))}
           </Table>
