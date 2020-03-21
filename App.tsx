@@ -3,11 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Header, ThemeProvider } from 'react-native-elements';
 
-import ClientDirectory from './screens/ClientDirectory';
-import DataReports from './screens/DataReports';
-import Games from './screens/Games';
-import Help from './screens/Help';
-import SystemSettings from './screens/SystemSettings';
+import ClientDirectory from './Screens/ClientDirectory';
+import DataReports from './Screens/DataReports';
+import Games from './Screens/Games';
+import Help from './Screens/Help';
+import SystemSettings from './Screens/SystemSettings';
 
 const Tab = createMaterialTopTabNavigator();
 
