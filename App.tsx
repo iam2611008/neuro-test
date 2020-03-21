@@ -16,7 +16,12 @@ export default function App() {
     <ThemeProvider>
       <NavigationContainer>
         <Header
+          placement="left"
           leftComponent={{
+            icon: 'account-circle',
+            color: '#fff'
+          }}
+          centerComponent={{
             text: 'Client ID: sample',
             style: { color: '#fff' }
           }}
