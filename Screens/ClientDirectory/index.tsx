@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { Button, CheckBox } from 'react-native-elements';
@@ -17,7 +17,7 @@ function ClientDirectory() {
   ]);
   const [tableData, setTableData] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let arr = [];
 
     dummyData.map(
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
     padding: 20
   },
   cardContent: {},
-  head: { height: 40, borderBottomWidth: 1, borderColor: '#C1C0B9' },
   text: { margin: 6 },
   row: { flexDirection: 'row', minWidth: '100%' }
 });
