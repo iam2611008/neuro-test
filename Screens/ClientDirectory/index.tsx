@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { Button, CheckBox } from 'react-native-elements';
 
@@ -38,7 +38,11 @@ function ClientDirectory() {
   const element = (data: boolean, index: number): JSX.Element => {
     return (
       <View>
-        <CheckBox checked={data} onPress={() => onClickCheckbox(index)} />
+        <CheckBox
+          key={index}
+          checked={data}
+          onPress={() => onClickCheckbox(index)}
+        />
       </View>
     );
   };
@@ -50,24 +54,18 @@ function ClientDirectory() {
           <Button title="New Client" />
         </View>
         <View style={styles.cardContent}>
-          <Table>
-            <Row
-              data={tableHead}
-              flexArr={[1, 1, 1, 2, 1, 2]}
-              style={styles.head}
-              textStyle={styles.text}
-            />
-            {tableData.map((rowData, index) => (
-              <TableWrapper key={index} style={styles.row}>
-                {rowData.map(
+          <ScrollView horizontal={true}>
+            <Table style={{ minWidth: '100%' }}>
+              <TableWrapper style={styles.row}>
+                {tableHead.map(
                   (cellData: any, cellIndex: number): JSX.Element => (
                     <Cell
                       key={cellIndex}
-                      data={
-                        cellIndex === 0 ? element(cellData, index) : cellData
-                      }
+                      data={cellData}
                       style={{
-                        flex: cellIndex === 3 || cellIndex === 5 ? 2 : 1,
+                        minWidth: cellIndex === 3 || cellIndex === 5 ? 150 : 80,
+                        width:
+                          cellIndex === 3 || cellIndex === 5 ? '20%' : '15%',
                         borderBottomWidth: 1,
                         borderColor: '#C1C0B9'
                       }}
@@ -76,8 +74,31 @@ function ClientDirectory() {
                   )
                 )}
               </TableWrapper>
-            ))}
-          </Table>
+              {tableData.map((rowData, index) => (
+                <TableWrapper key={index} style={styles.row}>
+                  {rowData.map(
+                    (cellData: any, cellIndex: number): JSX.Element => (
+                      <Cell
+                        key={cellIndex}
+                        data={
+                          cellIndex === 0 ? element(cellData, index) : cellData
+                        }
+                        style={{
+                          minWidth:
+                            cellIndex === 3 || cellIndex === 5 ? 150 : 80,
+                          width:
+                            cellIndex === 3 || cellIndex === 5 ? '20%' : '15%',
+                          borderBottomWidth: 1,
+                          borderColor: '#C1C0B9'
+                        }}
+                        textStyle={styles.text}
+                      />
+                    )
+                  )}
+                </TableWrapper>
+              ))}
+            </Table>
+          </ScrollView>
         </View>
       </View>
     </View>
@@ -104,7 +125,7 @@ const styles = StyleSheet.create({
   cardContent: {},
   head: { height: 40, borderBottomWidth: 1, borderColor: '#C1C0B9' },
   text: { margin: 6 },
-  row: { flexDirection: 'row' }
+  row: { flexDirection: 'row', minWidth: '100%' }
 });
 
 export default ClientDirectory;
